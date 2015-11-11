@@ -1,6 +1,6 @@
 # Maintainer: Tom Swartz <tom@tswartz.net>
 
-pkgname=liquid-dsp
+pkgname=liquid-dsp-git
 _pkgname=liquid-dsp
 pkgver=5881.af66095
 pkgrel=1

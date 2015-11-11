@@ -1,6 +1,6 @@
 # Maintainer: Tom Swartz <tom@tswartz.net>
 
-pkgname=soapysdr
+pkgname=soapysdr-git
 _pkgname=SoapySDR
 pkgver=310.4331e63
 pkgrel=1

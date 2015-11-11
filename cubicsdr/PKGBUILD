@@ -21,8 +21,15 @@ pkgver() {
 build() {
 	cd "${srcdir}/${_pkgname}"
 	cmake .
+	make -C "${srcdir}/${_pkgname}" DESTDIR="${pkgdir}"
 }
 
 package() {
-	make -C "${srcdir}/${_pkgname}" DESTDIR="${pkgdir}"
+	install -dm755 "${pkgdir}/usr/bin"
+
+	cd "${srcdir}/${_pkgname}/x64"
+	#for file in `ls ${srcdir}/${_name}-${pkgver}`; do
+	#    install -Dm755 "$file" "${pkgdir}/usr/bin/${file}"
+	#done
+	install -Dm755 CubicSDR "${pkgdir}/usr/bin/cubicsdr"
 }

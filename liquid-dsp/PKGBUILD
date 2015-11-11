@@ -1,0 +1,29 @@
+# Maintainer: Tom Swartz <tom@tswartz.net>
+
+pkgname=liquid-dsp
+_pkgname=liquid-dsp
+pkgver=5881.af66095
+pkgrel=1
+pkgdesc="Cross-Platform Software-Defined Radio Application"
+arch=('any')
+url="https://github.com/jgaeddert/liquid-dsp"
+license=('GPL2')
+makedepends=('git')
+source=(${_pkgname}::"git+https://github.com/jgaeddert/${_pkgname}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	cd "${srcdir}/${_pkgname}"
+	echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "${srcdir}/${_pkgname}"
+	./bootstrap.sh
+	./configure
+	make
+}
+
+package() {
+	make -C "${srcdir}/${_pkgname}" DESTDIR="${pkgdir}" install
+}

@@ -1,0 +1,30 @@
+# Maintainer: Tom Swartz <tom@tswartz.net>
+
+pkgname=soapysdr
+_pkgname=SoapySDR
+pkgver=310.4331e63
+pkgrel=1
+pkgdesc="Cross-Platform Software-Defined Radio Application"
+arch=('any')
+url="https://github.com/pothosware/SoapySDR"
+license=('GPL2')
+makedepends=('git')
+source=(${_pkgname}::"git+https://github.com/pothosware/${_pkgname}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	cd "${srcdir}/${_pkgname}"
+	echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "${srcdir}/${_pkgname}"
+	mkdir -p build
+	cd build
+	cmake .. -DCMAKE_BUILD_TYPE=Release
+	make -j4
+}
+
+package() {
+	make -C "${srcdir}/${_pkgname}/build" DESTDIR="${pkgdir}" install
+}

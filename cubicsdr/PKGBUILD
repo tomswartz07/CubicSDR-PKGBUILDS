@@ -1,0 +1,28 @@
+# Maintainer: Tom Swartz <tom@tswartz.net>
+
+pkgname=cubicsdr-git
+_pkgname=CubicSDR
+pkgver=736.8f18c31
+pkgrel=1
+pkgdesc="Cross-Platform Software-Defined Radio Application"
+arch=('any')
+url="https://github.com/cjcliffe/CubicSDR"
+license=('GPL2')
+depends=('fftw' 'wxgtk' 'soapysdr' 'liquid-dsp')
+makedepends=('git' 'automake' 'cmake')
+source=(${_pkgname}::"git+https://github.com/cjcliffe/${_pkgname}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	cd "${srcdir}/${_pkgname}"
+	echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "${srcdir}/${_pkgname}"
+	cmake .
+}
+
+package() {
+	make -C "${srcdir}/${_pkgname}" DESTDIR="${pkgdir}"
+}
